@@ -1,9 +1,9 @@
 const modal = document.getElementById("modal");
-const modalText = modal.querySelector("p");
+const modalText = document.querySelector("p");
 
 const showModal = (text) => {
-  modalText.innerText = text;
   modal.style.display = "flex";
+  modalText.innerText = text;
 };
 
 const removeModal = () => {
