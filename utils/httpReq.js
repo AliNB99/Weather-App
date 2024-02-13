@@ -1,7 +1,7 @@
 import { showModal } from "./modal.js";
 
 const BASE_URL = "https://api.openweathermap.org/data/2.5";
-const API_KEY = "7f68dd3e8fb7335b12cbbe0c59dc7ac4";
+const API_KEY = "7f68dd3e8fb7335b12cbbe0c59dc7ac4";//this api key inactive
 
 const getWeatherData = async (type, data) => {
   let url = null;
