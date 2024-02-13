@@ -1,5 +1,5 @@
 import getWeekDay from "./utils/customerDate.js";
-import getWeather from "./utils/httpReq.js";
+import getWeatherData from "./utils/httpReq.js";
 import { removeModal, showModal } from "./utils/modal.js";
 
 const weatherContainer = document.getElementById("weather");
@@ -10,8 +10,8 @@ const locationIcon = document.getElementById("location");
 const modalBtn = document.getElementById("modal-button");
 
 const initHandler = async () => {
-  const weatherData = await getWeather("current", "tehran");
-  const forecastData = await getWeather("forecast", "tehran");
+  const weatherData = await getWeatherData("current", "tehran");
+  const forecastData = await getWeatherData("forecast", "tehran");
   renderCurrentWeather(weatherData);
   renderForecastWeather(forecastData);
 };
@@ -24,19 +24,16 @@ const searchHandler = async () => {
     return;
   }
 
-  try {
-    searchInput.value = "";
-    weatherContainer.innerHTML = `<span id="loader"></span>`;
-    forecastContainer.innerHTML = "";
+  searchInput.value = "";
+  weatherContainer.innerHTML = `<span id="loader"></span>`;
+  forecastContainer.innerHTML = "";
 
-    const weatherData = await getWeather("current", cityName);
-    const forecastData = await getWeather("forecast", cityName);
-    if (weatherData && forecastData) {
-      renderCurrentWeather(weatherData);
-      renderForecastWeather(forecastData);
-    }
-  } catch (error) {
-    showModal(error.message);
+  const weatherData = await getWeatherData("current", cityName);
+  const forecastData = await getWeatherData("forecast", cityName);
+  if (weatherData && forecastData) {
+    renderCurrentWeather(weatherData);
+    renderForecastWeather(forecastData);
+  } else {
     weatherContainer.innerHTML = "<h1>please try again</h1>";
   }
 };
@@ -55,8 +52,8 @@ const positionCallback = async (position) => {
   const lat = position.coords.latitude;
   const lon = position.coords.longitude;
 
-  const weatherData = await getWeather("current", { lat, lon });
-  const forecastData = await getWeather("forecast", { lat, lon });
+  const weatherData = await getWeatherData("current", { lat, lon });
+  const forecastData = await getWeatherData("forecast", { lat, lon });
   if (weatherData && forecastData) {
     renderCurrentWeather(weatherData);
     renderForecastWeather(forecastData);
